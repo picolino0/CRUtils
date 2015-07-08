@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
@@ -28,11 +22,11 @@ namespace CRUtils
                     Controls.Clear();
                 }
 
-                for (int i = files.Length - 1; i >= 0; i--)
+                for (int i = 1; i <= files.Length; i++)
                 {
-                    String st = files[i];
-                    int col = i % 5;
-                    int row = i / 5;
+                    String st = files[files.Length - i];
+                    int col = (i - 1) % 5;
+                    int row = (i - 1) / 5;
 
                     PictureBox pb = new PictureBox();
                     pb.ImageLocation = st;

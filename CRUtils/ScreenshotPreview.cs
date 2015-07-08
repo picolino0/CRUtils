@@ -66,7 +66,7 @@ namespace CRUtils
         private void PictureBox_Click(object sender, EventArgs e)
         {
             // Save image
-            String scName = "SC" + DateTime.Now.ToString("yyyyMMdd-Hmmss") + ".png";
+            String scName = "SC" + DateTime.Now.ToString("yyyyMMdd-hhmmss") + ".png";
             Directory.CreateDirectory(form.settings.ScreenshotSavePath);
             ((PictureBox)sender).Image.Save(form.settings.ScreenshotSavePath + "\\" + scName, ImageFormat.Png);
             form.Notify("Screenshot added", "Screenshot saved as " + scName);
