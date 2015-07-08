@@ -561,6 +561,7 @@ namespace CRUtils
             }
             if (screen.ToLower().Equals("settings"))
             {
+                selected = "Settings";
                 pnlUserControls.Controls.Clear();
                 pnlUserControls.Controls.Add(new SettingsScreen(this));
             }
