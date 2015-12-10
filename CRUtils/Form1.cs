@@ -375,7 +375,11 @@ namespace CRUtils
                 {
                     offset = new Point();
                 }
-                e.Graphics.DrawImage((Image)Properties.Resources.ResourceManager.GetResourceSet(CultureInfo.CurrentCulture, false, false).GetObject(ctrl.Name.Substring(2), true), new Rectangle(offset.X, offset.Y, 176, 352));
+
+                Console.WriteLine(ctrl.Name.Substring(2).ToLower());
+                Image img = (Image)Properties.Resources.ResourceManager.GetResourceSet(CultureInfo.CurrentCulture, false, true).GetObject(ctrl.Name.Substring(2).ToLower(), true);
+
+                e.Graphics.DrawImage(img, new Rectangle(offset.X, offset.Y, 176, 352));
             }
         }
 
