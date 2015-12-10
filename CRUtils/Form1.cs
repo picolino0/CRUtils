@@ -7,23 +7,33 @@ using System.Runtime.InteropServices;
 using System.Globalization;
 using System.IO;
 using System.Diagnostics;
+using SpotifyAPI.Local;
+using SpotifyAPI.Local.Models;
 
 namespace CRUtils
 {
     public partial class Form1 : Form
     {
-        private readonly object locker = new object();
-
         private bool moving = false, closeForReal = false, mouseEnteredToolStrip = false, startup = true;
         private Point locationFromMouse;
-        private String selected = "Pictures";
+        private string selected = "Pictures";
         private UserActivityHook actHook;
-        private List<String> keysPressed = new List<String>();
+        private List<string> keysPressed = new List<String>();
+        private static Form1 form;
 
-        public ScreenshotPreview scp = null;
-        public static Form1 form;
+        public bool SpotifyConnected
+        {
+            get; private set;
+        }
+        private SpotifyLocalAPI spotify;
 
-        public String Selected
+        public ScreenshotPreview scp
+        {
+            get;
+            set;
+        }
+
+        public string Selected
         {
             get { return selected; }
         }
@@ -45,6 +55,11 @@ namespace CRUtils
             form = this;
             settings = new Settings();
             pnlUserControls.Controls.Add(new PicturesScreen(this));
+
+            if (settings.SpotifyNotificationsEnabled)
+            {
+                SpotifyConnect(false);
+            }
         }
 
         #region Titlebar
@@ -135,7 +150,7 @@ namespace CRUtils
 
         private void setColorLbClose(int r, int g, int b, Control ctrl)
         {
-            lock (locker)
+            lock (this)
             {
                 ctrl.BackColor = Color.FromArgb(r, g, b);
             }
@@ -376,7 +391,6 @@ namespace CRUtils
                     offset = new Point();
                 }
 
-                Console.WriteLine(ctrl.Name.Substring(2).ToLower());
                 Image img = (Image)Properties.Resources.ResourceManager.GetResourceSet(CultureInfo.CurrentCulture, false, true).GetObject(ctrl.Name.Substring(2).ToLower(), true);
 
                 e.Graphics.DrawImage(img, new Rectangle(offset.X, offset.Y, 176, 352));
@@ -407,7 +421,15 @@ namespace CRUtils
         #endregion
 
         #region GlobalWindows
-        public void GlobalWindowsKeyDown(Keys key)
+        public static void GlobalWindowsKeyDown(Keys key)
+        {
+            if (form != null)
+            {
+                form.WindowsKeyDown(key);
+            }
+        }
+
+        private void WindowsKeyDown(Keys key)
         {
             #region left and right keys to one
             if (key.ToString().EndsWith("ControlKey"))
@@ -470,7 +492,15 @@ namespace CRUtils
             #endregion
         }
 
-        public void GlobalWindowsKeyUp(Keys key)
+        public static void GlobalWindowsKeyUp(Keys key)
+        {
+            if (form != null)
+            {
+                form.WindowsKeyUp(key);
+            }
+        }
+
+        private void WindowsKeyUp(Keys key)
         {
             #region left and right keys to one
             if (key.ToString().EndsWith("ControlKey"))
@@ -488,24 +518,11 @@ namespace CRUtils
                 scp = null;
             }
             keysPressed.Remove(key.ToString());
+
             #region Screenshot
-            if (settings.MediaControlEnabled)
+            if (settings.ScreenshotSaveEnabled && key == Keys.PrintScreen)
             {
-                if (key.ToString().EndsWith("ControlKey"))
-                {
-                    key = Keys.ControlKey;
-                }
-                if (key.ToString().EndsWith("ShiftKey"))
-                {
-                    key = Keys.ShiftKey;
-                }
-            }
-            if (settings.ScreenshotSaveEnabled)
-            {
-                if (key == Keys.PrintScreen)
-                {
-                    saveScreenshot();
-                }
+                saveScreenshot();
             }
             #endregion
         }
@@ -538,6 +555,70 @@ namespace CRUtils
         }
         #endregion
 
+        #region Spotify Control
+        public void Spotify_OnTrackChange(TrackChangeEventArgs ev)
+        {
+            this.Notify("Now Playing", ev.NewTrack.TrackResource.Name + " by " + ev.NewTrack.ArtistResource.Name);
+        }
+
+        public void Spotify_OnPlayStateChange(PlayStateEventArgs ev)
+        {
+            if (ev.Playing)
+            {
+                Track track = spotify.GetStatus().Track;
+                this.Notify("Now Playing", track.TrackResource.Name + " by " + track.ArtistResource.Name);
+            }
+        }
+
+        public void SpotifyConnect(bool prompt)
+        {
+            spotify = new SpotifyLocalAPI();
+            spotify.OnTrackChange += Spotify_OnTrackChange;
+            spotify.OnPlayStateChange += Spotify_OnPlayStateChange;
+            spotify.ListenForEvents = true;
+
+            if (!SpotifyLocalAPI.IsSpotifyRunning())
+            {
+                if (prompt)
+                {
+                    MessageBox.Show(@"Spotify isn't running!");
+                }
+                return;
+            }
+            if (!SpotifyLocalAPI.IsSpotifyWebHelperRunning())
+            {
+                if (prompt)
+                {
+                    MessageBox.Show(@"SpotifyWebHelper isn't running!");
+                }
+                return;
+            }
+
+            bool successful = spotify.Connect();
+            if (!successful)
+            {
+                // Reset connection first
+                SpotifyDisconnect();
+
+                if (prompt)
+                {
+                    DialogResult res = MessageBox.Show(@"Couldn't connect to the spotify client. Retry?", @"Spotify", MessageBoxButtons.YesNo);
+                    if (res == DialogResult.Yes)
+                        SpotifyConnect(true);
+                }
+            }
+
+            SpotifyConnected = successful;
+        }
+
+        public void SpotifyDisconnect()
+        {
+            spotify.OnTrackChange -= Spotify_OnTrackChange;
+            spotify.OnPlayStateChange -= Spotify_OnPlayStateChange;
+            spotify = null;
+        }
+        #endregion
+
         public void saveScreenshot()
         {
             if (scp != null)
@@ -545,7 +626,7 @@ namespace CRUtils
                 scp.Close();
                 scp = null;
             }
-            scp = new ScreenshotPreview();
+            scp = new ScreenshotPreview(this);
             scp.Show();
         }
 

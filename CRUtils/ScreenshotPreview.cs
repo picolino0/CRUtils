@@ -21,9 +21,9 @@ namespace CRUtils
         private Form1 form;
         private List<PictureBox> pictureboxes = new List<PictureBox>();
 
-        public ScreenshotPreview()
+        public ScreenshotPreview(Form1 form)
         {
-            this.form = Form1.form;
+            this.form = form;
             InitializeComponent();
             InitializeAdditionalComponent();
         }

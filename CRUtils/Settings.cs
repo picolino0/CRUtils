@@ -13,6 +13,12 @@ namespace CRUtils
     [Serializable]
     public class Settings
     {
+        public bool SpotifyNotificationsEnabled
+        {
+            get;
+            set;
+        }
+
         public bool HideAtStartup
         {
             get;
@@ -90,6 +96,7 @@ namespace CRUtils
                 using (Stream s = new FileStream(path + "\\Settings.crutil", FileMode.Open, FileAccess.Read, FileShare.None))
                 {
                     Settings set = (Settings)formatter.Deserialize(s);
+                    SpotifyNotificationsEnabled = set.SpotifyNotificationsEnabled;
                     HideAtStartup = set.HideAtStartup;
                     FirstTimeHide = set.FirstTimeHide;
                     HideOnClose = set.HideOnClose;
@@ -114,6 +121,7 @@ namespace CRUtils
         private void createFile()
         {
             String path = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            SpotifyNotificationsEnabled = true;
             HideAtStartup = false;
             FirstTimeHide = true;
             HideOnClose = true;

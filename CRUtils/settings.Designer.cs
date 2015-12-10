@@ -53,8 +53,12 @@
             this.ScreenshotFolderSelect = new System.Windows.Forms.FolderBrowserDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbRunAtStart = new System.Windows.Forms.CheckBox();
+            this.gbSpotify = new System.Windows.Forms.GroupBox();
+            this.btnSpotifyConnect = new System.Windows.Forms.Button();
+            this.cbSpotify = new System.Windows.Forms.CheckBox();
             this.gbMediaPlayerControls.SuspendLayout();
             this.gbSaveScreenshotSettings.SuspendLayout();
+            this.gbSpotify.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbHideAtStartup
@@ -315,11 +319,47 @@
             this.cbRunAtStart.Text = "Run CR Utilities at Windows startup";
             this.cbRunAtStart.UseVisualStyleBackColor = true;
             // 
+            // gbSpotify
+            // 
+            this.gbSpotify.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbSpotify.Controls.Add(this.btnSpotifyConnect);
+            this.gbSpotify.Location = new System.Drawing.Point(230, 216);
+            this.gbSpotify.Name = "gbSpotify";
+            this.gbSpotify.Size = new System.Drawing.Size(800, 68);
+            this.gbSpotify.TabIndex = 17;
+            this.gbSpotify.TabStop = false;
+            this.gbSpotify.Text = "Spotify";
+            // 
+            // btnSpotifyConnect
+            // 
+            this.btnSpotifyConnect.Location = new System.Drawing.Point(10, 28);
+            this.btnSpotifyConnect.Name = "btnSpotifyConnect";
+            this.btnSpotifyConnect.Size = new System.Drawing.Size(75, 23);
+            this.btnSpotifyConnect.TabIndex = 0;
+            this.btnSpotifyConnect.Text = "Connect";
+            this.btnSpotifyConnect.UseVisualStyleBackColor = true;
+            this.btnSpotifyConnect.Click += new System.EventHandler(this.btnSpotifyConnect_Click);
+            // 
+            // cbSpotify
+            // 
+            this.cbSpotify.AutoSize = true;
+            this.cbSpotify.Checked = true;
+            this.cbSpotify.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbSpotify.Location = new System.Drawing.Point(15, 137);
+            this.cbSpotify.Name = "cbSpotify";
+            this.cbSpotify.Size = new System.Drawing.Size(178, 17);
+            this.cbSpotify.TabIndex = 18;
+            this.cbSpotify.Text = "Show \'Now Playing\' notifications";
+            this.cbSpotify.UseVisualStyleBackColor = true;
+            this.cbSpotify.CheckedChanged += new System.EventHandler(this.cbSpotify_CheckedChanged);
+            // 
             // SettingsScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
+            this.Controls.Add(this.cbSpotify);
+            this.Controls.Add(this.gbSpotify);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.gbSaveScreenshotSettings);
@@ -336,6 +376,7 @@
             this.gbMediaPlayerControls.PerformLayout();
             this.gbSaveScreenshotSettings.ResumeLayout(false);
             this.gbSaveScreenshotSettings.PerformLayout();
+            this.gbSpotify.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -368,5 +409,8 @@
         private System.Windows.Forms.FolderBrowserDialog ScreenshotFolderSelect;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox cbRunAtStart;
+        private System.Windows.Forms.GroupBox gbSpotify;
+        private System.Windows.Forms.CheckBox cbSpotify;
+        private System.Windows.Forms.Button btnSpotifyConnect;
     }
 }

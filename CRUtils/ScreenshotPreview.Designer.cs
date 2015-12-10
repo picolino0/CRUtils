@@ -44,7 +44,6 @@
             this.Deactivate += new System.EventHandler(this.ScreenshotPreview_Deactivate);
             this.Load += new System.EventHandler(this.ScreenshotPreview_Load);
             this.ResumeLayout(false);
-
         }
 
         #endregion

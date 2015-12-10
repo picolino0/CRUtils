@@ -23,9 +23,13 @@ namespace CRUtils
             cbHideAtStartup.Checked = form.settings.HideAtStartup;
             cbHideOnClose.Checked = form.settings.HideOnClose;
             cbMediaControl.Checked = form.settings.MediaControlEnabled;
+            cbSpotify.Checked = form.settings.SpotifyNotificationsEnabled;
+
             gbMediaPlayerControls.Enabled = form.settings.MediaControlEnabled;
             cbSaveScreenshots.Checked = form.settings.ScreenshotSaveEnabled;
             gbSaveScreenshotSettings.Enabled = form.settings.ScreenshotSaveEnabled;
+            gbSpotify.Enabled = form.settings.SpotifyNotificationsEnabled;
+
             tbPlayBtn1.Text = form.settings.PlayPauseButtons.Count > 0 ? form.settings.PlayPauseButtons[0] : "";
             tbPlayBtn2.Text = form.settings.PlayPauseButtons.Count > 1 ? form.settings.PlayPauseButtons[1] : "";
             tbPlayBtn3.Text = form.settings.PlayPauseButtons.Count > 2 ? form.settings.PlayPauseButtons[2] : "";
@@ -39,6 +43,8 @@ namespace CRUtils
             tbPrevBtn3.Text = form.settings.PrevTrackButtons.Count > 2 ? form.settings.PrevTrackButtons[2] : "";
 
             tbScreenshotSavePath.Text = form.settings.ScreenshotSavePath;
+
+            btnSpotifyConnect.Text = form.SpotifyConnected ? "Disconnect" : "Connect";
 
             if (rkApp.GetValue("CRUtils") == null)
             {
@@ -81,6 +87,11 @@ namespace CRUtils
             {
                 gbSaveScreenshotSettings.Enabled = false;
             }
+        }
+
+        private void cbSpotify_CheckedChanged(object sender, EventArgs e)
+        {
+            gbSpotify.Enabled = cbSpotify.Checked;
         }
 
         private void SettingsScreen_Click(object sender, EventArgs e)
@@ -171,6 +182,7 @@ namespace CRUtils
             form.settings.HideOnClose = cbHideOnClose.Checked;
             form.settings.MediaControlEnabled = cbMediaControl.Checked;
             form.settings.ScreenshotSaveEnabled = cbSaveScreenshots.Checked;
+            form.settings.SpotifyNotificationsEnabled = cbSpotify.Checked;
             form.settings.PlayPauseButtons.Clear();
             if (tbPlayBtn1.Text.Trim() != "")
             {
@@ -244,6 +256,18 @@ namespace CRUtils
             if (e.KeyCode == Keys.Escape)
             {
                 ctrl.Text = "";
+            }
+        }
+
+        private void btnSpotifyConnect_Click(object sender, EventArgs e)
+        {
+            if (form.SpotifyConnected)
+            {
+                form.SpotifyDisconnect();
+            }
+            else
+            {
+                form.SpotifyConnect(true);
             }
         }
     }

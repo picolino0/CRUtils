@@ -48,13 +48,13 @@ namespace CRUtils
             if (code >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
                 int vkCode = Marshal.ReadInt32(lParam);
-                Form1.form.GlobalWindowsKeyDown((Keys)vkCode);
+                Form1.GlobalWindowsKeyDown((Keys)vkCode);
                 return (IntPtr)0;
             }
             else if (code >= 0 && wParam == (IntPtr)WM_KEYUP)
             {
                 int vkCode = Marshal.ReadInt32(lParam);
-                Form1.form.GlobalWindowsKeyUp((Keys)vkCode);
+                Form1.GlobalWindowsKeyUp((Keys)vkCode);
                 return (IntPtr)0;
             }
             else
