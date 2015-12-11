@@ -570,7 +570,7 @@ namespace CRUtils
             }
         }
 
-        public void SpotifyConnect(bool prompt)
+        public bool SpotifyConnect(bool prompt)
         {
             spotify = new SpotifyLocalAPI();
             spotify.OnTrackChange += Spotify_OnTrackChange;
@@ -583,7 +583,7 @@ namespace CRUtils
                 {
                     MessageBox.Show(@"Spotify isn't running!");
                 }
-                return;
+                return false;
             }
             if (!SpotifyLocalAPI.IsSpotifyWebHelperRunning())
             {
@@ -591,7 +591,7 @@ namespace CRUtils
                 {
                     MessageBox.Show(@"SpotifyWebHelper isn't running!");
                 }
-                return;
+                return false;
             }
 
             bool successful = spotify.Connect();
@@ -609,6 +609,7 @@ namespace CRUtils
             }
 
             SpotifyConnected = successful;
+            return successful;
         }
 
         public void SpotifyDisconnect()
@@ -616,6 +617,7 @@ namespace CRUtils
             spotify.OnTrackChange -= Spotify_OnTrackChange;
             spotify.OnPlayStateChange -= Spotify_OnPlayStateChange;
             spotify = null;
+            SpotifyConnected = false;
         }
         #endregion
 

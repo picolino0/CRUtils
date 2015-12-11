@@ -263,11 +263,15 @@ namespace CRUtils
         {
             if (form.SpotifyConnected)
             {
+                btnSpotifyConnect.Text = "Connect";
                 form.SpotifyDisconnect();
             }
             else
             {
-                form.SpotifyConnect(true);
+                if (form.SpotifyConnect(true))
+                {
+                    btnSpotifyConnect.Text = "Disconnect";
+                }
             }
         }
     }
