@@ -241,11 +241,6 @@ namespace CRUtils
             MessageBox.Show("Settings saved", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
-        private void Media_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
         private void Media_KeyUp(object sender, KeyEventArgs e)
         {
             Control ctrl = (Control)sender;

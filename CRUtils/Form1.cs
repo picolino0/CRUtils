@@ -14,7 +14,7 @@ namespace CRUtils
 {
     public partial class Form1 : Form
     {
-        private bool moving = false, closeForReal = false, mouseEnteredToolStrip = false, startup = true;
+        private bool moving = false, closeForReal = false, mouseEnteredToolStrip = false, startup = true, overrideAutoSpot = false;
         private Point locationFromMouse;
         private string selected = "Pictures";
         private UserActivityHook actHook;
@@ -572,6 +572,11 @@ namespace CRUtils
 
         public bool SpotifyConnect(bool prompt)
         {
+            if (prompt)
+            {
+                overrideAutoSpot = true;
+            }
+
             spotify = new SpotifyLocalAPI();
             spotify.OnTrackChange += Spotify_OnTrackChange;
             spotify.OnPlayStateChange += Spotify_OnPlayStateChange;
@@ -582,6 +587,17 @@ namespace CRUtils
                 if (prompt)
                 {
                     MessageBox.Show(@"Spotify isn't running!");
+                }
+                else
+                {
+                    new Thread(delegate ()
+                    {
+                        Thread.Sleep(10000);
+                        if (!overrideAutoSpot)
+                        {
+                            this.Invoke(new Action(() => SpotifyConnect(false)));
+                        }
+                    }).Start();
                 }
                 return false;
             }
@@ -618,6 +634,7 @@ namespace CRUtils
             spotify.OnPlayStateChange -= Spotify_OnPlayStateChange;
             spotify = null;
             SpotifyConnected = false;
+            overrideAutoSpot = true;
         }
         #endregion
 
