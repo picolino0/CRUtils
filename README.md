@@ -13,6 +13,11 @@ A simple utility application made by [picolino0](https://www.github.com/picolino
 
 This is the main screen. It'll display all images in the specified screenshot folder. On the left side you see an `Image`-icon and a `Settings`-icon. By clicking one of these you'll switch to the main and settings screen respectively
 
+#### Screenshot preview
+![Screenshot3](http://picolino0.github.io/images/screen3.png)
+
+A preview of all screens will be shown when the `printscreen` key is pressed. Once one of the screens in the preview is clicked, a screenshot of that screen will be saved to the screenshot folder.
+
 #### Settings screen
 ![Screenshot2](http://picolino0.github.io/images/screen2.png)
 
