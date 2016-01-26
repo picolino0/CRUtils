@@ -588,17 +588,7 @@ namespace CRUtils
                 {
                     MessageBox.Show(@"Spotify isn't running!");
                 }
-                else
-                {
-                    new Thread(delegate ()
-                    {
-                        Thread.Sleep(10000);
-                        if (!overrideAutoSpot)
-                        {
-                            this.Invoke(new Action(() => SpotifyConnect(false)));
-                        }
-                    }).Start();
-                }
+
                 return false;
             }
             if (!SpotifyLocalAPI.IsSpotifyWebHelperRunning())
