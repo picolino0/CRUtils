@@ -105,7 +105,9 @@
             <!-- Media Keys Panel -->
             <Border MinHeight="250" Padding="10" Name="MediaPanel">
                 <StackPanel>
-                    <CheckBox IsChecked="true" Name="MediaEnable" Margin="0 0 0 10px">Enable</CheckBox>
+                    <CheckBox Name="MediaEnable" Margin="0 0 0 10px">
+                        Enable
+                    </CheckBox>
 
                     <StackPanel IsEnabled="{Binding ElementName=MediaEnable, Path=IsChecked}">
                         <!-- Play/Pause Keys -->
@@ -120,9 +122,16 @@
                                 <RowDefinition Height="30px" />
                             </Grid.RowDefinitions>
 
-                            <TextBox Grid.Column="0" KeyUp="MediaKeyInput_KeyUp" Style="{StaticResource KeyTextBox}">Shift</TextBox>
-                            <TextBox Grid.Column="1" KeyUp="MediaKeyInput_KeyUp" Style="{StaticResource KeyTextBox}">Pause</TextBox>
-                            <TextBox Grid.Column="2" KeyUp="MediaKeyInput_KeyUp" Style="{StaticResource KeyTextBox}" />
+                            <TextBox Grid.Column="0" Name="playpauseKey0" KeyUp="MediaKeyInput_KeyUp"
+                                     Style="{StaticResource KeyTextBox}">
+                                Shift
+                            </TextBox>
+                            <TextBox Grid.Column="1" Name="playpauseKey1" KeyUp="MediaKeyInput_KeyUp"
+                                     Style="{StaticResource KeyTextBox}">
+                                Pause
+                            </TextBox>
+                            <TextBox Grid.Column="2" Name="playpauseKey2" KeyUp="MediaKeyInput_KeyUp"
+                                     Style="{StaticResource KeyTextBox}" />
                         </Grid>
 
                         <!-- Prev Keys -->
@@ -137,9 +146,16 @@
                                 <RowDefinition Height="30px" />
                             </Grid.RowDefinitions>
 
-                            <TextBox Grid.Column="0" KeyUp="MediaKeyInput_KeyUp" Style="{StaticResource KeyTextBox}">Ctrl</TextBox>
-                            <TextBox Grid.Column="1" KeyUp="MediaKeyInput_KeyUp" Style="{StaticResource KeyTextBox}">F1</TextBox>
-                            <TextBox Grid.Column="2" KeyUp="MediaKeyInput_KeyUp" Style="{StaticResource KeyTextBox}" />
+                            <TextBox Grid.Column="0" Name="prevKey0" KeyUp="MediaKeyInput_KeyUp"
+                                     Style="{StaticResource KeyTextBox}">
+                                Ctrl
+                            </TextBox>
+                            <TextBox Grid.Column="1" Name="prevKey1" KeyUp="MediaKeyInput_KeyUp"
+                                     Style="{StaticResource KeyTextBox}">
+                                F1
+                            </TextBox>
+                            <TextBox Grid.Column="2" Name="prevKey2" KeyUp="MediaKeyInput_KeyUp"
+                                     Style="{StaticResource KeyTextBox}" />
                         </Grid>
 
                         <!-- Next Keys -->
@@ -154,9 +170,16 @@
                                 <RowDefinition Height="30px" />
                             </Grid.RowDefinitions>
 
-                            <TextBox Grid.Column="0" KeyUp="MediaKeyInput_KeyUp" Style="{StaticResource KeyTextBox}">Ctrl</TextBox>
-                            <TextBox Grid.Column="1" KeyUp="MediaKeyInput_KeyUp" Style="{StaticResource KeyTextBox}">F2</TextBox>
-                            <TextBox Grid.Column="2" KeyUp="MediaKeyInput_KeyUp" Style="{StaticResource KeyTextBox}" />
+                            <TextBox Grid.Column="0" Name="nextKey0" KeyUp="MediaKeyInput_KeyUp"
+                                     Style="{StaticResource KeyTextBox}">
+                                Ctrl
+                            </TextBox>
+                            <TextBox Grid.Column="1" Name="nextKey1" KeyUp="MediaKeyInput_KeyUp"
+                                     Style="{StaticResource KeyTextBox}">
+                                F2
+                            </TextBox>
+                            <TextBox Grid.Column="2" Name="nextKey2" KeyUp="MediaKeyInput_KeyUp"
+                                     Style="{StaticResource KeyTextBox}" />
                         </Grid>
                     </StackPanel>
                 </StackPanel>
@@ -165,12 +188,15 @@
             <!-- Screenshots Panel -->
             <Border MinHeight="250" Padding="10" Name="ScreenshotPanel">
                 <StackPanel>
-                    <CheckBox IsChecked="true" Name="ScreenshotEnable" Margin="0 0 0 10px">Enable</CheckBox>
+                    <CheckBox Name="ScreenshotEnable" Margin="0 0 0 10px">
+                        Enable
+                    </CheckBox>
 
                     <StackPanel IsEnabled="{Binding ElementName=ScreenshotEnable, Path=IsChecked}">
                         <TextBlock>Screenshot Folder</TextBlock>
                         <StackPanel Height="30" Orientation="Horizontal">
-                            <TextBox Height="30"
+                            <TextBox Name="ScreenshotFolder"
+                                     Height="30"
                                      Width="220" />
                             <Button Height="30" Width="80">Browse</Button>
                         </StackPanel>
@@ -181,14 +207,14 @@
             <!-- General Settings Panel -->
             <Border MinHeight="250" Padding="10" Name="SettingsPanel">
                 <StackPanel>
-                    <CheckBox Style="{StaticResource SettingsCheckbox}">Run at startup</CheckBox>
-                    <CheckBox Style="{StaticResource SettingsCheckbox}">Hide at startup</CheckBox>
-                    <CheckBox Style="{StaticResource SettingsCheckbox}" IsChecked="true">Hide to tray when closed</CheckBox>
+                    <CheckBox Name="RunAtStartup" Style="{StaticResource SettingsCheckbox}">Run at startup</CheckBox>
+                    <CheckBox Name="HideAtStartup" Style="{StaticResource SettingsCheckbox}">Hide at startup</CheckBox>
+                    <CheckBox Name="HideToTray" Style="{StaticResource SettingsCheckbox}" IsChecked="true">Hide to tray when closed</CheckBox>
                 </StackPanel>
             </Border>
 
             <Border Padding="10">
-                <Button Height="30">
+                <Button Height="30" Click="SaveBtn_Click">
                     Save Changes
                 </Button>
             </Border>

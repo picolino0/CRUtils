@@ -25,6 +25,7 @@
           <e p="Resources.resx" t="Include" />
         </e>
         <e p="Scripts" t="Include">
+          <e p="ApplicationSettings.cs" t="Include" />
           <e p="ConsoleManager.cs" t="Include" />
           <e p="KeyListener.cs" t="Include" />
         </e>

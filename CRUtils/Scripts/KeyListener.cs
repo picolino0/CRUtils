@@ -41,6 +41,10 @@ namespace com.colinrosen.CRUtils.Scripts
                 case Key.RightShift:
                     keyName = "Shift";
                     break;
+                case Key.LWin:
+                case Key.RWin:
+                    keyName = "Win";
+                    break;
             }
 
             return keyName;
