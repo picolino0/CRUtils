@@ -101,7 +101,7 @@
                                              Text="General Settings" />
         </HamburgerMenu:HamburgerMenu>
 
-        <StackPanel Width="320">
+        <StackPanel Margin="0 0 0 10" Width="320">
             <!-- Media Keys Panel -->
             <Border MinHeight="250" Padding="10" Name="MediaPanel">
                 <StackPanel>
@@ -187,8 +187,8 @@
                 </StackPanel>
             </Border>
 
-            <Border Height="50" VerticalAlignment="Center" Padding="10">
-                <Button>
+            <Border Padding="10">
+                <Button Height="30">
                     Save Changes
                 </Button>
             </Border>
