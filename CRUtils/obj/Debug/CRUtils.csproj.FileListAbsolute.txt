@@ -1,0 +1,16 @@
+E:\C#\CRUtils\CRutils\bin\Debug\MediaKeys.exe.config
+E:\C#\CRUtils\CRutils\bin\Debug\MediaKeys.exe
+E:\C#\CRUtils\CRutils\bin\Debug\MediaKeys.pdb
+E:\C#\CRUtils\CRutils\bin\Debug\HamburgerMenu.dll
+E:\C#\CRUtils\CRutils\obj\Debug\CRUtils.csprojResolveAssemblyReference.cache
+E:\C#\CRUtils\CRutils\obj\Debug\MainWindow.g.cs
+E:\C#\CRUtils\CRutils\obj\Debug\App.g.cs
+E:\C#\CRUtils\CRutils\obj\Debug\MediaKeys_MarkupCompile.cache
+E:\C#\CRUtils\CRutils\obj\Debug\MediaKeys_MarkupCompile.lref
+E:\C#\CRUtils\CRutils\obj\Debug\MainWindow.baml
+E:\C#\CRUtils\CRutils\obj\Debug\MediaKeys.g.resources
+E:\C#\CRUtils\CRutils\obj\Debug\MediaKeys.Properties.Resources.resources
+E:\C#\CRUtils\CRutils\obj\Debug\CRUtils.csproj.GenerateResource.Cache
+E:\C#\CRUtils\CRutils\obj\Debug\CRUtils.csproj.CoreCompileInputs.cache
+E:\C#\CRUtils\CRutils\obj\Debug\MediaKeys.exe
+E:\C#\CRUtils\CRutils\obj\Debug\MediaKeys.pdb

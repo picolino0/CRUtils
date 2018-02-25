@@ -1,0 +1,16 @@
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\bin\Debug\MediaKeys.exe.config
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\bin\Debug\MediaKeys.exe
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\bin\Debug\MediaKeys.pdb
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\obj\Debug\MediaKeys.csprojResolveAssemblyReference.cache
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\obj\Debug\MainWindow.g.cs
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\obj\Debug\App.g.cs
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\obj\Debug\MediaKeys_MarkupCompile.cache
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\obj\Debug\MediaKeys_MarkupCompile.lref
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\obj\Debug\MainWindow.baml
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\obj\Debug\MediaKeys.g.resources
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\obj\Debug\MediaKeys.Properties.Resources.resources
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\obj\Debug\MediaKeys.csproj.GenerateResource.Cache
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\obj\Debug\MediaKeys.csproj.CoreCompileInputs.cache
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\obj\Debug\MediaKeys.exe
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\obj\Debug\MediaKeys.pdb
+D:\Colin\Desktop\Meeh\MediaKeys\MediaKeys\bin\Debug\HamburgerMenu.dll
