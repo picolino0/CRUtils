@@ -1,19 +1,56 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using com.colinrosen.CRUtils.Scripts;
 using HamburgerMenu;
 
-namespace MediaKeys
+namespace com.colinrosen.CRUtils
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
+        #region FIELDS
+
+        private KeyListener _keyListener;
+
+        #endregion
+
+        #region SETUP
+
         public MainWindow()
         {
+            // Check if debug console should be shown
+            string[] args = Environment.GetCommandLineArgs();
+            bool debug = false;
+            foreach (string arg in args)
+                if (arg.Trim().ToLower().GetHashCode() == "--debug".GetHashCode())
+                {
+                    debug = true;
+                    break;
+                }
+
+            // Show console if debug mode
+            if (debug)
+                ConsoleManager.Show();
+
+            // Load wpf components
             InitializeComponent();
+
+            // Initialize keylistener
+            _keyListener = new KeyListener();
+            KeyDown += _keyListener.OnKeyDown;
+            KeyUp += _keyListener.OnKeyUp;
         }
 
-        private void HamburgerMenu_Change(object sender, RoutedEventArgs routedEventArgs)
+        #endregion
+
+        #region EVENTS
+
+        private void HamburgerMenu_Change(object sender, RoutedEventArgs ev)
         {
             HamburgerMenuItem item = sender as HamburgerMenuItem;
             if (item == null) return;
@@ -35,5 +72,17 @@ namespace MediaKeys
                     break;
             }
         }
+
+        private void MediaKeyInput_KeyUp(object sender, KeyEventArgs ev)
+        {
+            if (!(sender is TextBox textBox) || ev.Key == Key.Tab) return;
+
+            if (ev.Key == Key.Escape)
+                textBox.Text = "";
+            else
+                textBox.Text = _keyListener.KeyToString(ev.Key);
+        }
+
+        #endregion
     }
 }

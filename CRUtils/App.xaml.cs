@@ -1,4 +1,4 @@
-﻿namespace MediaKeys
+﻿namespace com.colinrosen.CRUtils
 {
     /// <summary>
     /// Interaction logic for App.xaml
