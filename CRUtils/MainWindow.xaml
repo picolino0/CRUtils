@@ -7,7 +7,7 @@
         xmlns:HamburgerMenu="clr-namespace:HamburgerMenu;assembly=HamburgerMenu"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="CRUtils 2.0" Height="350" MinWidth="385" MaxWidth="385" MinHeight="350">
+        Title="CRUtils 2.0" Height="350" MinWidth="385" MaxWidth="385" MinHeight="350" Icon="Assets/crlogo.png">
     <Window.Resources>
         <Style x:Key="KeyTextBox" TargetType="TextBox">
             <Setter Property="Margin" Value="10 0 10 0" />

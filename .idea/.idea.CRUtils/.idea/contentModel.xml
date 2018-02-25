@@ -8,6 +8,7 @@
         <e p="App.xaml" t="Include" />
         <e p="App.xaml.cs" t="Include" />
         <e p="Assets" t="Include">
+          <e p="crlogo.png" t="Include" />
           <e p="keyboard.png" t="Include" />
           <e p="screenshot.png" t="Include" />
           <e p="settings.png" t="Include" />
