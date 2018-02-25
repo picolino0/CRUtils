@@ -9,11 +9,12 @@
         mc:Ignorable="d"
         Title="CRUtils 2.0" Height="350" MinWidth="385" MaxWidth="385" MinHeight="350" Icon="Assets/crlogo.png">
     <Window.Resources>
+        <!-- Generic Types -->
         <Style TargetType="TextBox">
             <Setter Property="Background" Value="{x:Static SystemColors.WindowBrush}" />
             <Setter Property="BorderBrush" Value="{x:Static SystemColors.ControlDarkBrush}" />
             <Setter Property="BorderThickness" Value="2" />
-            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Foreground" Value="{x:Static SystemColors.ControlTextBrush}" />
             <Setter Property="FontSize" Value="12px" />
             <Setter Property="Padding" Value="5px 0 5px 0" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -44,10 +45,6 @@
             </Setter>
         </Style>
 
-        <Style BasedOn="{StaticResource {x:Type TextBox}}" x:Key="KeyTextBox" TargetType="TextBox">
-            <Setter Property="Margin" Value="10 0 10 0" />
-        </Style>
-
         <Style TargetType="Button">
             <Setter Property="Background" Value="{x:Static SystemColors.ControlDarkBrush}" />
             <Setter Property="BorderBrush" Value="{x:Static SystemColors.ControlDarkBrush}" />
@@ -75,6 +72,15 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <!-- Classes -->
+        <Style BasedOn="{StaticResource {x:Type TextBox}}" x:Key="KeyTextBox" TargetType="TextBox">
+            <Setter Property="Margin" Value="10 0 10 0" />
+        </Style>
+
+        <Style BasedOn="{StaticResource {x:Type CheckBox}}" x:Key="SettingsCheckbox" TargetType="CheckBox">
+            <Setter Property="Margin" Value="5" />
+        </Style>
     </Window.Resources>
 
     <StackPanel Orientation="Horizontal">
@@ -96,6 +102,7 @@
         </HamburgerMenu:HamburgerMenu>
 
         <StackPanel Width="320">
+            <!-- Media Keys Panel -->
             <Border MinHeight="250" Padding="10" Name="MediaPanel">
                 <StackPanel>
                     <CheckBox IsChecked="true" Name="MediaEnable" Margin="0 0 0 10px">Enable</CheckBox>
@@ -155,6 +162,7 @@
                 </StackPanel>
             </Border>
 
+            <!-- Screenshots Panel -->
             <Border MinHeight="250" Padding="10" Name="ScreenshotPanel">
                 <StackPanel>
                     <CheckBox IsChecked="true" Name="ScreenshotEnable" Margin="0 0 0 10px">Enable</CheckBox>
@@ -170,8 +178,13 @@
                 </StackPanel>
             </Border>
 
+            <!-- General Settings Panel -->
             <Border MinHeight="250" Padding="10" Name="SettingsPanel">
-                <TextBlock>Hello</TextBlock>
+                <StackPanel>
+                    <CheckBox Style="{StaticResource SettingsCheckbox}">Run at startup</CheckBox>
+                    <CheckBox Style="{StaticResource SettingsCheckbox}">Hide at startup</CheckBox>
+                    <CheckBox Style="{StaticResource SettingsCheckbox}" IsChecked="true">Hide to tray when closed</CheckBox>
+                </StackPanel>
             </Border>
 
             <Border Height="50" VerticalAlignment="Center" Padding="10">
