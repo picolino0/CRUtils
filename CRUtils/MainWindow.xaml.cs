@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
-using com.colinrosen.CRUtils.Scripts;
 using HamburgerMenu;
+using Application = System.Windows.Application;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using MessageBox = System.Windows.MessageBox;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace com.colinrosen.CRUtils
 {
@@ -19,6 +21,21 @@ namespace com.colinrosen.CRUtils
 
         private KeyListener _keyListener;
         private ApplicationSettings _settings;
+        private VirtualKeyManager _virtualKeyManager;
+
+        #endregion
+
+        #region PROPERTIES
+
+        public ApplicationSettings Settings
+        {
+            get { return _settings; }
+        }
+
+        public KeyListener KeyListener
+        {
+            get { return _keyListener; }
+        }
 
         #endregion
 
@@ -51,14 +68,72 @@ namespace com.colinrosen.CRUtils
 
             // Initialize keylistener
             _keyListener = new KeyListener();
-            KeyDown += _keyListener.OnKeyDown;
-            KeyUp += _keyListener.OnKeyUp;
 
             // Initialize settings
             _settings = new ApplicationSettings();
             _settings.Load();
 
             ApplySettingsToUI();
+
+            // Initialize virtual key manager
+            _virtualKeyManager = new VirtualKeyManager(this);
+        }
+
+        ~MainWindow()
+        {
+            _keyListener = null;
+        }
+
+        #endregion
+
+        #region EVENTHANDLERS
+
+        private void HamburgerMenu_Change(object sender, RoutedEventArgs ev)
+        {
+            HamburgerMenuItem item = sender as HamburgerMenuItem;
+            if (item == null) return;
+
+            MediaPanel.Visibility = Visibility.Collapsed;
+            ScreenshotPanel.Visibility = Visibility.Collapsed;
+            SettingsPanel.Visibility = Visibility.Collapsed;
+
+            switch (item.TabIndex)
+            {
+                case 0:
+                    MediaPanel.Visibility = Visibility.Visible;
+                    break;
+                case 1:
+                    ScreenshotPanel.Visibility = Visibility.Visible;
+                    break;
+                case 2:
+                    SettingsPanel.Visibility = Visibility.Visible;
+                    break;
+            }
+        }
+
+        private void MediaKeyInput_KeyUp(object sender, KeyEventArgs ev)
+        {
+            if (!(sender is TextBox) || ev.Key == Key.Tab || ev.Key == Key.MediaPlayPause ||
+                ev.Key == Key.MediaNextTrack || ev.Key == Key.MediaPreviousTrack) return;
+
+            TextBox textBox = (TextBox) sender;
+
+            Key key = ev.Key == Key.System ? ev.SystemKey : ev.Key;
+            if (key == Key.Escape)
+                textBox.Text = "";
+            else
+                textBox.Text = KeyListener.KeyToString((Keys) KeyInterop.VirtualKeyFromKey(key));
+
+            textBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+            Keyboard.ClearFocus();
+        }
+
+        private void SaveBtn_Click(object sender, RoutedEventArgs ev)
+        {
+            ApplyUIToSettings();
+
+            _settings.Save();
+            MessageBox.Show("Saved settings", "Saved!");
         }
 
         #endregion
@@ -83,25 +158,25 @@ namespace com.colinrosen.CRUtils
             ScreenshotEnable.IsChecked = _settings.EnableScreenshots;
 
             ScreenshotFolder.Text = _settings.ScreenshotFolder;
-            if (_settings.PlayPauseKeys.Length > 0)
+            if (_settings.PlayPauseKeys != null && _settings.PlayPauseKeys.Length > 0)
                 playpauseKey0.Text = _settings.PlayPauseKeys[0];
-            if (_settings.PlayPauseKeys.Length > 1)
+            if (_settings.PlayPauseKeys != null && _settings.PlayPauseKeys.Length > 1)
                 playpauseKey1.Text = _settings.PlayPauseKeys[1];
-            if (_settings.PlayPauseKeys.Length > 2)
+            if (_settings.PlayPauseKeys != null && _settings.PlayPauseKeys.Length > 2)
                 playpauseKey2.Text = _settings.PlayPauseKeys[2];
 
-            if (_settings.PrevKeys.Length > 0)
+            if (_settings.PrevKeys != null && _settings.PrevKeys.Length > 0)
                 prevKey0.Text = _settings.PrevKeys[0];
-            if (_settings.PrevKeys.Length > 1)
+            if (_settings.PrevKeys != null && _settings.PrevKeys.Length > 1)
                 prevKey1.Text = _settings.PrevKeys[1];
-            if (_settings.PrevKeys.Length > 2)
+            if (_settings.PrevKeys != null && _settings.PrevKeys.Length > 2)
                 prevKey2.Text = _settings.PrevKeys[2];
 
-            if (_settings.NextKeys.Length > 0)
+            if (_settings.NextKeys != null && _settings.NextKeys.Length > 0)
                 nextKey0.Text = _settings.NextKeys[0];
-            if (_settings.NextKeys.Length > 1)
+            if (_settings.NextKeys != null && _settings.NextKeys.Length > 1)
                 nextKey1.Text = _settings.NextKeys[1];
-            if (_settings.NextKeys.Length > 2)
+            if (_settings.NextKeys != null && _settings.NextKeys.Length > 2)
                 nextKey2.Text = _settings.NextKeys[2];
 
             RunAtStartup.IsChecked = _settings.RunAtStartup;
@@ -146,51 +221,6 @@ namespace com.colinrosen.CRUtils
             _settings.RunAtStartup = RunAtStartup.IsChecked.Value;
             _settings.HideAtStartup = HideAtStartup.IsChecked.Value;
             _settings.MinimizeToTray = HideToTray.IsChecked.Value;
-        }
-
-        #endregion
-
-        #region EVENTS
-
-        private void HamburgerMenu_Change(object sender, RoutedEventArgs ev)
-        {
-            HamburgerMenuItem item = sender as HamburgerMenuItem;
-            if (item == null) return;
-
-            MediaPanel.Visibility = Visibility.Collapsed;
-            ScreenshotPanel.Visibility = Visibility.Collapsed;
-            SettingsPanel.Visibility = Visibility.Collapsed;
-
-            switch (item.TabIndex)
-            {
-                case 0:
-                    MediaPanel.Visibility = Visibility.Visible;
-                    break;
-                case 1:
-                    ScreenshotPanel.Visibility = Visibility.Visible;
-                    break;
-                case 2:
-                    SettingsPanel.Visibility = Visibility.Visible;
-                    break;
-            }
-        }
-
-        private void MediaKeyInput_KeyUp(object sender, KeyEventArgs ev)
-        {
-            if (!(sender is TextBox textBox) || ev.Key == Key.Tab) return;
-
-            if (ev.Key == Key.Escape)
-                textBox.Text = "";
-            else
-                textBox.Text = _keyListener.KeyToString(ev.Key);
-        }
-
-        private void SaveBtn_Click(object sender, RoutedEventArgs ev)
-        {
-            ApplyUIToSettings();
-
-            _settings.Save();
-            MessageBox.Show("Saved settings", "Saved!");
         }
 
         #endregion

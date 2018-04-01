@@ -4,7 +4,6 @@ E:\C#\CRUtils\CRutils\obj\Debug\MainWindow.g.cs
 E:\C#\CRUtils\CRutils\obj\Debug\App.g.cs
 E:\C#\CRUtils\CRutils\obj\Debug\MainWindow.baml
 E:\C#\CRUtils\CRutils\obj\Debug\CRUtils.csproj.GenerateResource.Cache
-E:\C#\CRUtils\CRutils\obj\Debug\CRUtils.csproj.CoreCompileInputs.cache
 E:\C#\CRUtils\CRutils\bin\Debug\CRUtils.exe.config
 E:\C#\CRUtils\CRutils\bin\Debug\CRUtils.exe
 E:\C#\CRUtils\CRutils\bin\Debug\CRUtils.pdb
@@ -14,3 +13,10 @@ E:\C#\CRUtils\CRutils\obj\Debug\CRUtils.g.resources
 E:\C#\CRUtils\CRutils\obj\Debug\com.colinrosen.CRUtils.Properties.Resources.resources
 E:\C#\CRUtils\CRutils\obj\Debug\CRUtils.exe
 E:\C#\CRUtils\CRutils\obj\Debug\CRUtils.pdb
+E:\C#\CRUtils\CRutils\bin\Debug\mscorlib.dll
+E:\C#\CRUtils\CRutils\bin\Debug\normidna.nlp
+E:\C#\CRUtils\CRutils\bin\Debug\normnfc.nlp
+E:\C#\CRUtils\CRutils\bin\Debug\normnfd.nlp
+E:\C#\CRUtils\CRutils\bin\Debug\normnfkc.nlp
+E:\C#\CRUtils\CRutils\bin\Debug\normnfkd.nlp
+E:\C#\CRUtils\CRutils\bin\Debug\Gma.System.MouseKeyHook.dll

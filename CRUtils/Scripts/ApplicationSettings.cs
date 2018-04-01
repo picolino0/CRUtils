@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.Win32;
 
-namespace com.colinrosen.CRUtils.Scripts
+namespace com.colinrosen.CRUtils
 {
     [Serializable]
     public class ApplicationSettings

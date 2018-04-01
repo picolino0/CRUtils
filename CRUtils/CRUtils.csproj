@@ -34,12 +34,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gma.System.MouseKeyHook, Version=5.6.130.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MouseKeyHook.5.6.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
+    </Reference>
     <Reference Include="HamburgerMenu, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\HamburgerMenu.0.1.0\lib\net40\HamburgerMenu.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -54,8 +58,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Scripts\ConsoleManager.cs" />
-    <Compile Include="Scripts\KeyListener.cs" />
+    <Compile Include="Scripts\KeyListener0.cs" />
     <Compile Include="Scripts\ApplicationSettings.cs" />
+    <Compile Include="Scripts\KeyListener.cs" />
+    <Compile Include="Scripts\VirtualKeyManager.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

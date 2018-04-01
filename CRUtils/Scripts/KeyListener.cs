@@ -1,13 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Windows.Input;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using Gma.System.MouseKeyHook;
 
-namespace com.colinrosen.CRUtils.Scripts
+namespace com.colinrosen.CRUtils
 {
     public class KeyListener
     {
+        #region EVENTS
+
+        public event Action<Keys> OnKeyDown;
+        public event Action<Keys> OnKeyUp;
+        
+        #endregion
+        
         #region FIELDS
 
-        private List<int> keysDown;
+        private IKeyboardEvents _globalHook;
+
+        private List<int> _keysDown;
 
         #endregion
 
@@ -15,63 +26,114 @@ namespace com.colinrosen.CRUtils.Scripts
 
         public KeyListener()
         {
-            keysDown = new List<int>();
+            _keysDown = new List<int>();
+
+            _globalHook = Hook.GlobalEvents();
+
+            _globalHook.KeyDown += OnGlobalKeyDown;
+            _globalHook.KeyUp += OnGlobalKeyUp;
+        }
+
+        ~KeyListener()
+        {
+            _globalHook.KeyDown -= OnGlobalKeyDown;
+            _globalHook.KeyUp -= OnGlobalKeyUp;
+
+            _globalHook = null;
+        }
+
+        #endregion
+
+        #region EVENTHANDLERS
+
+        private void OnGlobalKeyDown(object sender, KeyEventArgs e)
+        {
+            int key = KeyToString(e.KeyCode).ToLower().GetHashCode();
+            if (_keysDown.Contains(key)) return;
+            
+            _keysDown.Add(key);
+            
+            // Call event
+            if (OnKeyDown != null)
+                OnKeyDown(e.KeyCode);
+        }
+
+        private void OnGlobalKeyUp(object sender, KeyEventArgs e)
+        {
+            int key = KeyToString(e.KeyCode).ToLower().GetHashCode();
+            if (!_keysDown.Remove(key)) return;
+
+            // Call event
+            if (OnKeyUp != null)
+                OnKeyUp(e.KeyCode);
         }
 
         #endregion
 
         #region PUBLIC
 
-        public string KeyToString(Key key)
+        public static string KeyToString(Keys key)
         {
             string keyName = key.ToString();
 
             // Change left/right [key] to single key
             switch (key)
             {
-                case Key.LeftAlt:
-                case Key.RightAlt:
+                case Keys.LMenu:
+                case Keys.RMenu:
                     keyName = "Alt";
                     break;
-                case Key.LeftCtrl:
-                case Key.RightCtrl:
+                case Keys.LControlKey:
+                case Keys.RControlKey:
                     keyName = "Ctrl";
                     break;
-                case Key.LeftShift:
-                case Key.RightShift:
+                case Keys.LShiftKey:
+                case Keys.RShiftKey:
                     keyName = "Shift";
                     break;
-                case Key.LWin:
-                case Key.RWin:
+                case Keys.LWin:
+                case Keys.RWin:
                     keyName = "Win";
                     break;
             }
 
-            return keyName;
+            return keyName.Trim();
         }
 
-        public void OnKeyDown(object sender, KeyEventArgs ev)
+        public static Keys StringToKey(string key)
         {
-            string keyName = KeyToString(ev.Key);
+            Keys k = Keys.None;
 
-            if (keysDown.Contains(keyName.GetHashCode()))
-                return;
+            // Change left/right [key] to single key
+            switch (key.Trim().ToLower())
+            {
+                case "alt":
+                    k = Keys.LMenu;
+                    break;
+                case "ctrl":
+                    k = Keys.LControlKey;
+                    break;
+                case "shift":
+                    k = Keys.LShiftKey;
+                    break;
+                case "win":
+                    k = Keys.LWin;
+                    break;
+            }
 
-            keysDown.Add(keyName.GetHashCode());
+            if (k == Keys.None && !Keys.TryParse(key, true, out k))
+                return Keys.None;
+
+            return k;
         }
-
-        public void OnKeyUp(object sender, KeyEventArgs ev)
-        {
-            string keyName = KeyToString(ev.Key);
-            keysDown.Remove(keyName.GetHashCode());
-        }
-
+        
         public bool AreKeysDown(params string[] keys)
         {
             int matches = 0;
+
             foreach (string key in keys)
             {
-                if (keysDown.Contains(key.Trim().ToLower().GetHashCode()))
+                if (_keysDown.Contains(key.Trim().ToLower().GetHashCode()))
                     matches++;
 
                 if (matches >= keys.Length)

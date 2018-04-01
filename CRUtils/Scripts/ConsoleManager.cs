@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace com.colinrosen.CRUtils.Scripts
+namespace com.colinrosen.CRUtils
 {
     [SuppressUnmanagedCodeSecurity]
     public static class ConsoleManager
@@ -33,14 +33,11 @@ namespace com.colinrosen.CRUtils.Scripts
         /// </summary>
         public static void Show()
         {
-            //#if DEBUG
             if (!HasConsole)
             {
                 AllocConsole();
                 InvalidateOutAndError();
             }
-
-            //#endif
         }
 
         /// <summary>
@@ -48,14 +45,11 @@ namespace com.colinrosen.CRUtils.Scripts
         /// </summary>
         public static void Hide()
         {
-            //#if DEBUG
             if (HasConsole)
             {
                 SetOutAndErrorNull();
                 FreeConsole();
             }
-
-            //#endif
         }
 
         public static void Toggle()
@@ -72,7 +66,7 @@ namespace com.colinrosen.CRUtils.Scripts
 
         static void InvalidateOutAndError()
         {
-            Type type = typeof(System.Console);
+            Type type = typeof(Console);
 
             System.Reflection.FieldInfo _out = type.GetField("_out",
                 System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
