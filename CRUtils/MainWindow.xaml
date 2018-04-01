@@ -123,11 +123,9 @@
                             </Grid.RowDefinitions>
 
                             <TextBox Grid.Column="0" Name="playpauseKey0" KeyUp="MediaKeyInput_KeyUp"
-                                     Style="{StaticResource KeyTextBox}">
-                            </TextBox>
+                                     Style="{StaticResource KeyTextBox}" />
                             <TextBox Grid.Column="1" Name="playpauseKey1" KeyUp="MediaKeyInput_KeyUp"
-                                     Style="{StaticResource KeyTextBox}">
-                            </TextBox>
+                                     Style="{StaticResource KeyTextBox}" />
                             <TextBox Grid.Column="2" Name="playpauseKey2" KeyUp="MediaKeyInput_KeyUp"
                                      Style="{StaticResource KeyTextBox}" />
                         </Grid>
@@ -145,11 +143,9 @@
                             </Grid.RowDefinitions>
 
                             <TextBox Grid.Column="0" Name="prevKey0" KeyUp="MediaKeyInput_KeyUp"
-                                     Style="{StaticResource KeyTextBox}">
-                            </TextBox>
+                                     Style="{StaticResource KeyTextBox}" />
                             <TextBox Grid.Column="1" Name="prevKey1" KeyUp="MediaKeyInput_KeyUp"
-                                     Style="{StaticResource KeyTextBox}">
-                            </TextBox>
+                                     Style="{StaticResource KeyTextBox}" />
                             <TextBox Grid.Column="2" Name="prevKey2" KeyUp="MediaKeyInput_KeyUp"
                                      Style="{StaticResource KeyTextBox}" />
                         </Grid>
@@ -167,11 +163,9 @@
                             </Grid.RowDefinitions>
 
                             <TextBox Grid.Column="0" Name="nextKey0" KeyUp="MediaKeyInput_KeyUp"
-                                     Style="{StaticResource KeyTextBox}">
-                            </TextBox>
+                                     Style="{StaticResource KeyTextBox}" />
                             <TextBox Grid.Column="1" Name="nextKey1" KeyUp="MediaKeyInput_KeyUp"
-                                     Style="{StaticResource KeyTextBox}">
-                            </TextBox>
+                                     Style="{StaticResource KeyTextBox}" />
                             <TextBox Grid.Column="2" Name="nextKey2" KeyUp="MediaKeyInput_KeyUp"
                                      Style="{StaticResource KeyTextBox}" />
                         </Grid>
@@ -192,7 +186,7 @@
                             <TextBox Name="ScreenshotFolder"
                                      Height="30"
                                      Width="220" />
-                            <Button Height="30" Width="80">Browse</Button>
+                            <Button Height="30" Width="80" Click="BrowseBtn_Click">Browse</Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

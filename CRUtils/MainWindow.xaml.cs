@@ -136,6 +136,17 @@ namespace com.colinrosen.CRUtils
             MessageBox.Show("Saved settings", "Saved!");
         }
 
+        private void BrowseBtn_Click(object sender, RoutedEventArgs ev)
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                DialogResult result = dialog.ShowDialog();
+                if (result != System.Windows.Forms.DialogResult.OK) return;
+
+                ScreenshotFolder.Text = dialog.SelectedPath;
+            }
+        }
+
         #endregion
 
         #region PRIVATE
