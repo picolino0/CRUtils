@@ -24,6 +24,13 @@
           <e p="Resources.Designer.cs" t="Include" />
           <e p="Resources.resx" t="Include" />
         </e>
+        <e p="Scripts" t="Include">
+          <e p="ApplicationSettings.cs" t="Include" />
+          <e p="ConsoleManager.cs" t="Include" />
+          <e p="KeyListener.cs" t="Include" />
+          <e p="KeyListener0.cs" t="Include" />
+          <e p="VirtualKeyManager.cs" t="Include" />
+        </e>
       </e>
       <e p="CRUtils.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
